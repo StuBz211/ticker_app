@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+<h1>Tickets</h1>
+{% for ticket in tickets %}
+        <li><a href="{{ url_for('ticket_detail', ticket=ticket.name) }}">{{ticket.name}}</a></li>
+    {% endfor %}
+{% endblock %}

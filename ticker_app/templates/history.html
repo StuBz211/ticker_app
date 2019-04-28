@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}hitsory {{ticket}}{% endblock %}
+
+{% block content %}
+<h1>History: {{Ticket}}</h1>
+<table border="1">
+    <div>
+        <h3><a href="{{ url_for( 'ticket_insider', ticket=ticket ) }}">Insiders</a></h3>
+    </div>
+    <tr>
+        {% for field in fields %}
+        <th>{{field|capitalize}}</th>
+        {% endfor %}
+    </tr>
+    {% for row in history %}
+        <tr>
+            {% for field in fields %}
+                <td>{{row[field]}}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

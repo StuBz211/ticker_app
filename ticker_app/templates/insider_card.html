@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Insider {{ticket}}{% endblock %}
+
+{% block content %}
+    <h1>Insider Card</h1>
+    <h2>{{ insider.name }}</h2>
+    <table border="1">
+        <tr>
+            {% for field in fields %}
+            <th>{{field}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for operation in insider_operations %}
+            <tr>
+                {% for field in fields %}
+                    <td>{{operation[field]}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

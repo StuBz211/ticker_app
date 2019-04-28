@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Delta {{ticket}}{% endblock %}
+
+{% block content %}
+<h1>Delta: {{Ticket}}</h1>
+<div>
+    {{ result.date_from}}
+    <br>
+    {{ result.date_to }}
+    <br>
+    {{ result.delta }}
+</div>
+{% endblock %}

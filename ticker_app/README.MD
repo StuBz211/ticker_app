@@ -8,3 +8,4 @@ docker-compose up --build -d
 docker-compose run app python manage.py init_db
 docker-compose run app python manage.py parse -w 4 
 ```
+Команды выполнять последовательно! иначе нет гарантий работоспособности.

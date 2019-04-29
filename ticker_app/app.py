@@ -1,3 +1,4 @@
+"""Модуль запуска приложения."""
 from datetime import datetime
 
 from flask import Flask, request, render_template

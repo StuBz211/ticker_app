@@ -1,3 +1,4 @@
+"""менеджер работы с консольными командами."""
 from flask_script import Manager
 
 from app import app, db

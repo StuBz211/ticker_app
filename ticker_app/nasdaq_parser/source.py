@@ -1,4 +1,4 @@
-
+"""Моудль работы с источником https://www.nasdaq.com """
 from urllib.parse import urljoin
 import requests
 import bs4
@@ -48,6 +48,7 @@ class ParserHistorical:
         for row in rows[1:]:
             row_dict = {k: normalize_text(v.text.strip()) for k, v in zip(self.headers, row.select('td'))}
             if any(row_dict.values()):
+                # подготовим данные
                 row_dict = update_dict_by_func(row_dict, sub_int, 'volume')
                 row_dict = update_dict_by_func(row_dict, get_date, 'date')
                 self.history_list.append(row_dict)
@@ -75,9 +76,12 @@ class ParserTradeTicker:
 
         for row in rows[1:]:
             row_dict = {k.lower(): v.text.strip() for k, v in zip(self.headers, row.select('td'))}
+
+            # подготовим данные
             row_dict['inner_id'] = row.select_one('a').attrs['href'].split('-')[-1]
             row_dict = update_dict_by_func(row_dict, sub_int, 'last_price', 'shares_held', 'shared_traded')
             row_dict = update_dict_by_func(row_dict, get_date, 'last_date')
+
             self.insider_trade_operations.append(row_dict)
 
     def to_list(self):

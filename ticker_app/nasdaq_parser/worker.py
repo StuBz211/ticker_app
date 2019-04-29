@@ -1,3 +1,4 @@
+"""Модуль для работа с потоками и задачами"""
 import time
 import queue
 from threading import Thread
@@ -47,6 +48,12 @@ class ThreadPool:
 
 
 def run_parse(tickers, n=1):
+    """запустим парсинг
+
+    args:
+        tickers: список названий акций
+        n: количество воркеров
+    """
     print('start parse')
     print('tickers count:', len(tickers))
     print('workers count:', n)

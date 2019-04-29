@@ -1,27 +1,37 @@
-from nasdaq_parser import source
+"""Моудль задач:
+ - получения контента
+ - парсинг
+ - запись данные в базу данных
+"""
+import abc
 
 from models import write_operation, write_history_ticker, get_ticker
 
 
-class BaseTask:
+from nasdaq_parser import source
+
+
+class BaseTask(abc.ABC):
     result = None
 
     def run(self):
         raise NotImplemented
 
 
-class TaskLoadPage(BaseTask):
+class TaskLoadPageTask(BaseTask):
     def __init__(self, ticker):
         self.ticker = ticker
 
 
-class LoadPageHistorical(TaskLoadPage):
+class LoadPageHistoricalTask(TaskLoadPageTask):
+    """задача на получение страницы с котировками на 3 месяца по названию акции"""
     def run(self):
         self.result = source.Client().get_historical_page(ticker=self.ticker)
         return ParseHistoricalTask(self.ticker, self.result)
 
 
-class LoadPageTrade(TaskLoadPage):
+class LoadPageTradeTask(TaskLoadPageTask):
+    """задача на получение данных по операции с акциями"""
     def __init__(self, ticker, page=1):
         super().__init__(ticker)
         self.page = page
@@ -34,6 +44,7 @@ class LoadPageTrade(TaskLoadPage):
 
 
 class ParseHistoricalTask(BaseTask):
+    """задача на парсинг сведений по котировкам акции"""
     def __init__(self, ticker, content):
         self.content = content
         self.ticker = ticker
@@ -48,6 +59,7 @@ class ParseHistoricalTask(BaseTask):
 
 
 class ParseTradeTask(BaseTask):
+    """задача на парсинг операций по акции"""
     def __init__(self, ticker, content):
         self.ticker = ticker
         self.content = content

@@ -1,3 +1,4 @@
+"""Модуль для работы для выдачи запросов в формате json"""
 from datetime import datetime
 
 from flask import Blueprint, jsonify, request

@@ -1,3 +1,4 @@
+"""Моудль моделей БД"""
 from sqlalchemy.exc import IntegrityError, InvalidRequestError
 from sqlalchemy.sql import text
 from sqlalchemy import and_
@@ -172,8 +173,7 @@ db.Table(
 
 
 def except_decorator(*exceptions):
-    """"""
-
+    """Декоратор отлавливает ошибки, которые переданы в аргементе"""
     def wrapper(func):
         def execute(*args, **kwargs):
             try:
@@ -234,9 +234,3 @@ def write_operation(ticker_name, data):
     )
     db.session.add(ins_op)
     db.session.commit()
-
-
-if __name__ == '__main__':
-    print('initial db')
-    db.create_all()
-    print('done')
